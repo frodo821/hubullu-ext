@@ -2,7 +2,7 @@
   "name": "hubullu",
   "displayName": "Hubullu",
   "description": "Language support for Hubullu (LexDSL)",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "anl-tools",
   "license": "MIT",
   "engines": {
@@ -93,7 +93,11 @@
         },
         "hubullu.entryRefDisplayMode": {
           "type": "string",
-          "enum": ["inlayHint", "overlay", "off"],
+          "enum": [
+            "inlayHint",
+            "overlay",
+            "off"
+          ],
           "default": "inlayHint",
           "description": "How to display resolved entry reference forms.",
           "enumDescriptions": [
