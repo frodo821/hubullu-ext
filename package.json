@@ -68,6 +68,14 @@
       {
         "command": "hubullu.restartServer",
         "title": "Hubullu: Restart Language Server"
+      },
+      {
+        "command": "hubullu.compileDictionary",
+        "title": "Hubullu: Compile Dictionary"
+      },
+      {
+        "command": "hubullu.openDictionary",
+        "title": "Hubullu: Open Dictionary Viewer"
       }
     ],
     "configuration": {
@@ -77,6 +85,11 @@
           "type": "string",
           "default": "hubullu",
           "description": "Path to the hubullu binary."
+        },
+        "hubullu.mainFile": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the main .hu entry point file. If empty, uses main.hu in workspace root."
         },
         "hubullu.entryRefDisplayMode": {
           "type": "string",
@@ -93,6 +106,7 @@
     }
   },
   "dependencies": {
+    "sql.js": "^1.11.0",
     "vscode-languageclient": "^9.0.1"
   },
   "devDependencies": {
@@ -102,8 +116,8 @@
     "typescript": "^5.7.3"
   },
   "scripts": {
-    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
-    "watch": "npm run compile -- --sourcemap --watch",
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node && cp node_modules/sql.js/dist/sql-wasm.wasm dist/",
+    "watch": "cp node_modules/sql.js/dist/sql-wasm.wasm dist/ && npm run compile -- --sourcemap --watch",
     "lint": "tsc --noEmit",
     "package": "vsce package"
   }

@@ -10,6 +10,8 @@ import {
   EntryRefDisplayMode,
 } from "./displayMode";
 import { SurfaceFormOverlayManager } from "./surfaceFormOverlay";
+import { compileDictionary, getDefaultDbPath } from "./dictionaryCompile";
+import { DictionaryViewerPanel } from "./dictionaryViewer";
 
 let client: LanguageClient | undefined;
 let serverProcess: cp.ChildProcess | undefined;
@@ -58,6 +60,29 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand("hubullu.restartServer", async () => {
       if (client) {
         await client.restart();
+      }
+    }),
+
+    vscode.commands.registerCommand("hubullu.compileDictionary", async () => {
+      const dbPath = await compileDictionary();
+      if (dbPath && DictionaryViewerPanel.current) {
+        await DictionaryViewerPanel.current.openDatabase(dbPath);
+      }
+    }),
+
+    vscode.commands.registerCommand("hubullu.openDictionary", async () => {
+      const dbPath = getDefaultDbPath();
+      const panel = DictionaryViewerPanel.createOrShow(context);
+      if (dbPath && require("fs").existsSync(dbPath)) {
+        await panel.openDatabase(dbPath);
+      } else {
+        const choice = await vscode.window.showWarningMessage(
+          "No compiled dictionary found. Run \"Hubullu: Compile Dictionary\" first.",
+          "Compile Now"
+        );
+        if (choice === "Compile Now") {
+          vscode.commands.executeCommand("hubullu.compileDictionary");
+        }
       }
     })
   );

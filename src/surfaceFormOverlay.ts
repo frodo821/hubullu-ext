@@ -25,6 +25,7 @@ export class SurfaceFormOverlayManager implements vscode.Disposable {
   private cache = new Map<string, SurfaceFormItem[]>();
   private enabled = false;
   private disposables: vscode.Disposable[] = [];
+  private refreshTimers = new Map<string, ReturnType<typeof setTimeout>>();
 
   constructor(private client: LanguageClient) {
     this.decorationType = vscode.window.createTextEditorDecorationType({
@@ -43,6 +44,24 @@ export class SurfaceFormOverlayManager implements vscode.Disposable {
         if (this.enabled && editor) {
           this.refreshEditor(editor);
         }
+      }),
+      vscode.workspace.onDidChangeTextDocument((e) => {
+        if (!this.enabled) return;
+        const uri = e.document.uri.toString();
+        const existing = this.refreshTimers.get(uri);
+        if (existing) clearTimeout(existing);
+        this.refreshTimers.set(
+          uri,
+          setTimeout(() => {
+            this.refreshTimers.delete(uri);
+            const editor = vscode.window.visibleTextEditors.find(
+              (ed) => ed.document === e.document
+            );
+            if (editor) {
+              this.refreshEditor(editor);
+            }
+          }, 300)
+        );
       })
     );
   }
@@ -147,6 +166,10 @@ export class SurfaceFormOverlayManager implements vscode.Disposable {
   }
 
   dispose(): void {
+    for (const timer of this.refreshTimers.values()) {
+      clearTimeout(timer);
+    }
+    this.refreshTimers.clear();
     for (const d of this.disposables) {
       d.dispose();
     }
