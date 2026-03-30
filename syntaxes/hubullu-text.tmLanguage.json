@@ -1,0 +1,79 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Hubullu Text",
+  "scopeName": "source.hubullu-text",
+  "patterns": [
+    { "include": "#source-directive" },
+    { "include": "#comment" },
+    { "include": "#string-literal" },
+    { "include": "#entry-ref-with-tags" },
+    { "include": "#bare-entry-ref" },
+    { "include": "#operator" }
+  ],
+  "repository": {
+    "source-directive": {
+      "match": "^(#)\\s*(@source)\\s+(.+)$",
+      "captures": {
+        "1": { "name": "comment.line.number-sign.hubullu-text" },
+        "2": { "name": "keyword.control.directive.hubullu-text" },
+        "3": { "name": "string.unquoted.path.hubullu-text" }
+      }
+    },
+    "comment": {
+      "match": "(^|(?<=\\s))#.*$",
+      "name": "comment.line.number-sign.hubullu-text"
+    },
+    "string-literal": {
+      "begin": "\"",
+      "end": "\"",
+      "name": "string.quoted.double.hubullu-text",
+      "patterns": [
+        {
+          "match": "\\\\[\\\\\"nt]",
+          "name": "constant.character.escape.hubullu-text"
+        }
+      ]
+    },
+    "entry-ref-with-tags": {
+      "match": "([\\w\\p{L}](?:[\\w\\p{L}]|\\.)*)\\s*(\\[)",
+      "captures": {
+        "1": { "name": "entity.name.type.entry.hubullu-text" },
+        "2": { "name": "punctuation.bracket.open.hubullu-text" }
+      },
+      "patterns": [
+        { "include": "#tag-list" }
+      ]
+    },
+    "tag-list": {
+      "begin": "\\[",
+      "end": "\\]",
+      "beginCaptures": { "0": { "name": "punctuation.bracket.open.hubullu-text" } },
+      "endCaptures": { "0": { "name": "punctuation.bracket.close.hubullu-text" } },
+      "patterns": [
+        { "include": "#tag-pair" },
+        {
+          "match": ",",
+          "name": "punctuation.separator.comma.hubullu-text"
+        }
+      ]
+    },
+    "tag-pair": {
+      "match": "([\\w\\p{L}]+)\\s*(=)\\s*([\\w\\p{L}]+)",
+      "captures": {
+        "1": { "name": "variable.other.axis.hubullu-text" },
+        "2": { "name": "keyword.operator.assignment.hubullu-text" },
+        "3": { "name": "constant.other.tag-value.hubullu-text" }
+      }
+    },
+    "bare-entry-ref": {
+      "match": "(?<![\"\\w\\p{L}])([\\w\\p{L}](?:[\\w\\p{L}|\\.])*)",
+      "captures": {
+        "1": { "name": "entity.name.type.entry.hubullu-text" }
+      }
+    },
+    "operator": {
+      "match": "~",
+      "name": "keyword.operator.hubullu-text"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Hubullu",
+  "scopeName": "source.hubullu",
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#directive" },
+    { "include": "#keyword" },
+    { "include": "#template-literal" },
+    { "include": "#string-literal" },
+    { "include": "#operator" }
+  ],
+  "repository": {
+    "comment": {
+      "match": "(^|(?<=\\s))#.*$",
+      "name": "comment.line.number-sign.hubullu"
+    },
+    "directive": {
+      "match": "@(use|reference|extend|render)\\b",
+      "name": "keyword.control.directive.hubullu"
+    },
+    "keyword": {
+      "match": "\\b(entry|tagaxis|inflection|phonrule|headword|stems|meaning|meanings|inflection_class|inflect|for|requires|compose|slot|override|on|as|null|role|inflectional|classificatory|structural|display|index|exact|fulltext|tags|forms|etymology|proto|cognates|derived_from|note|examples|class|map|match|else|separator|no_separator_before|with|harmony|from)\\b",
+      "name": "keyword.other.hubullu"
+    },
+    "template-literal": {
+      "begin": "`",
+      "end": "`",
+      "name": "string.template.hubullu",
+      "patterns": [
+        {
+          "match": "\\\\[`{}\\\\]",
+          "name": "constant.character.escape.hubullu"
+        },
+        {
+          "match": "\\{[^}]*\\}",
+          "name": "variable.other.interpolation.hubullu"
+        }
+      ]
+    },
+    "string-literal": {
+      "begin": "\"",
+      "end": "\"",
+      "name": "string.quoted.double.hubullu",
+      "patterns": [
+        {
+          "match": "\\\\[\\\\\"nt]",
+          "name": "constant.character.escape.hubullu"
+        }
+      ]
+    },
+    "operator": {
+      "match": "->|[=+*/!|~]",
+      "name": "keyword.operator.hubullu"
+    }
+  }
+}

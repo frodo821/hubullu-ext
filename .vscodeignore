@@ -1,0 +1,6 @@
+src/**
+out/**
+node_modules/**
+.vscode/**
+tsconfig.json
+.claude/**
