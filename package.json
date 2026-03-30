@@ -3,7 +3,7 @@
   "displayName": "Hubullu",
   "description": "Language support for Hubullu (LexDSL)",
   "version": "0.2.0",
-  "publisher": "anl-tools",
+  "publisher": "frodo821",
   "license": "MIT",
   "engines": {
     "vscode": "^1.75.0"
@@ -11,6 +11,9 @@
   "categories": [
     "Programming Languages"
   ],
+  "repository": {
+    "url": "https://github.com/frodo821/hubullu-ext"
+  },
   "main": "./dist/extension.js",
   "contributes": {
     "languages": [
