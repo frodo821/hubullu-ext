@@ -2,7 +2,7 @@
   "name": "hubullu",
   "displayName": "Hubullu",
   "description": "Language support for Hubullu (LexDSL)",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "frodo821",
   "license": "MIT",
   "engines": {
