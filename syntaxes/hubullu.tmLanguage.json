@@ -16,11 +16,11 @@
       "name": "comment.line.number-sign.hubullu"
     },
     "directive": {
-      "match": "@(use|reference|extend|render)\\b",
+      "match": "@(use|reference|extend|export|render)\\b",
       "name": "keyword.control.directive.hubullu"
     },
     "keyword": {
-      "match": "\\b(entry|tagaxis|inflection|phonrule|headword|stems|meaning|meanings|inflection_class|inflect|for|requires|compose|slot|override|on|as|null|role|inflectional|classificatory|structural|display|index|exact|fulltext|tags|forms|etymology|proto|cognates|derived_from|note|examples|class|map|match|else|separator|no_separator_before|with|harmony|from)\\b",
+      "match": "\\b(entry|tagaxis|inflection|phonrule|headword|stems|meaning|meanings|inflection_class|inflect|forms_override|for|requires|compose|slot|override|on|as|null|role|inflectional|classificatory|structural|display|index|exact|fulltext|tags|forms|slots|etymology|proto|cognates|derived_from|note|examples|example|tokens|translation|class|map|match|else|separator|no_separator_before|with|harmony|from)\\b",
       "name": "keyword.other.hubullu"
     },
     "template-literal": {
@@ -50,7 +50,7 @@
       ]
     },
     "operator": {
-      "match": "->|[=+*/!|~]",
+      "match": "->|[=+*/!|~^$]",
       "name": "keyword.operator.hubullu"
     }
   }

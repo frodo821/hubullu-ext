@@ -35,10 +35,12 @@
       ]
     },
     "entry-ref-with-tags": {
-      "match": "([\\w\\p{L}](?:[\\w\\p{L}]|\\.)*)\\s*(\\[)",
+      "match": "([\\w\\p{L}](?:[\\w\\p{L}]|\\.)*)(#([\\w\\p{L}]+))?\\s*(\\[)",
       "captures": {
         "1": { "name": "entity.name.type.entry.hubullu-text" },
-        "2": { "name": "punctuation.bracket.open.hubullu-text" }
+        "2": { "name": "punctuation.separator.meaning.hubullu-text" },
+        "3": { "name": "variable.other.meaning.hubullu-text" },
+        "4": { "name": "punctuation.bracket.open.hubullu-text" }
       },
       "patterns": [
         { "include": "#tag-list" }
@@ -66,9 +68,11 @@
       }
     },
     "bare-entry-ref": {
-      "match": "(?<![\"\\w\\p{L}])([\\w\\p{L}](?:[\\w\\p{L}|\\.])*)",
+      "match": "(?<![\"\\w\\p{L}])([\\w\\p{L}](?:[\\w\\p{L}]|\\.)*)(#([\\w\\p{L}]+))?",
       "captures": {
-        "1": { "name": "entity.name.type.entry.hubullu-text" }
+        "1": { "name": "entity.name.type.entry.hubullu-text" },
+        "2": { "name": "punctuation.separator.meaning.hubullu-text" },
+        "3": { "name": "variable.other.meaning.hubullu-text" }
       }
     },
     "operator": {
