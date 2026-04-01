@@ -104,9 +104,18 @@ export function activate(context: vscode.ExtensionContext): void {
       overlay.refresh();
     });
 
+    // Enable overlay state before init so that surfaceFormsRefresh
+    // notifications arriving during/after init are not ignored.
+    const initialMode = displayMode.getMode();
+    currentMode = initialMode;
+    overlay.setEnabled(initialMode === "overlay");
+
     displayMode.init().then(() => {
-      currentMode = displayMode.getMode();
-      overlay.setEnabled(displayMode.getMode() === "overlay");
+      // Server has acknowledged the mode; re-trigger overlay refresh
+      // in case the initial setEnabled fired before analysis completed.
+      if (displayMode.getMode() === "overlay") {
+        overlay.refresh();
+      }
     });
   });
 }
