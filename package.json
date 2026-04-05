@@ -79,6 +79,10 @@
       {
         "command": "hubullu.openDictionary",
         "title": "Hubullu: Open Dictionary Viewer"
+      },
+      {
+        "command": "hubullu.lintFix",
+        "title": "Hubullu: Lint & Fix"
       }
     ],
     "configuration": {

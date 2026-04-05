@@ -12,6 +12,7 @@ import {
 import { SurfaceFormOverlayManager } from "./surfaceFormOverlay";
 import { compileDictionary, getDefaultDbPath } from "./dictionaryCompile";
 import { DictionaryViewerPanel } from "./dictionaryViewer";
+import { lintFix } from "./lintFix";
 
 let client: LanguageClient | undefined;
 let serverProcess: cp.ChildProcess | undefined;
@@ -69,6 +70,8 @@ export function activate(context: vscode.ExtensionContext): void {
         await DictionaryViewerPanel.current.openDatabase(dbPath);
       }
     }),
+
+    vscode.commands.registerCommand("hubullu.lintFix", lintFix),
 
     vscode.commands.registerCommand("hubullu.openDictionary", async () => {
       const dbPath = getDefaultDbPath();

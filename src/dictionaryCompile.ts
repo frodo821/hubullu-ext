@@ -8,7 +8,7 @@ import * as fs from "fs";
  * Priority: hubullu.mainFile setting → main.hu in workspace root
  *         → active editor .hu file → file picker dialog.
  */
-async function resolveMainFile(workspaceRoot: string): Promise<string | undefined> {
+export async function resolveMainFile(workspaceRoot: string): Promise<string | undefined> {
   const config = vscode.workspace.getConfiguration("hubullu");
   const configured = config.get<string>("mainFile", "");
 

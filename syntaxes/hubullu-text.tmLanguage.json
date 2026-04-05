@@ -6,7 +6,11 @@
     { "include": "#source-directive" },
     { "include": "#comment" },
     { "include": "#string-literal" },
+    { "include": "#self-closing-tag" },
+    { "include": "#open-tag" },
+    { "include": "#close-tag" },
     { "include": "#entry-ref-with-tags" },
+    { "include": "#stem-ref" },
     { "include": "#bare-entry-ref" },
     { "include": "#operator" }
   ],
@@ -33,6 +37,41 @@
           "name": "constant.character.escape.hubullu-text"
         }
       ]
+    },
+    "self-closing-tag": {
+      "match": "(<)([a-zA-Z][a-zA-Z0-9-]*)((?:\\s+[a-zA-Z][a-zA-Z0-9-]*(?:=(?:\"[^\"]*\"|'[^']*'))?)*\\s*)(/)(>)",
+      "captures": {
+        "1": { "name": "punctuation.definition.tag.begin.hubullu-text" },
+        "2": { "name": "entity.name.tag.hubullu-text" },
+        "3": { "patterns": [{ "include": "#tag-attribute" }] },
+        "4": { "name": "punctuation.definition.tag.self-close.hubullu-text" },
+        "5": { "name": "punctuation.definition.tag.end.hubullu-text" }
+      }
+    },
+    "open-tag": {
+      "match": "(<)([a-zA-Z][a-zA-Z0-9-]*)((?:\\s+[a-zA-Z][a-zA-Z0-9-]*(?:=(?:\"[^\"]*\"|'[^']*'))?)*\\s*)(>)",
+      "captures": {
+        "1": { "name": "punctuation.definition.tag.begin.hubullu-text" },
+        "2": { "name": "entity.name.tag.hubullu-text" },
+        "3": { "patterns": [{ "include": "#tag-attribute" }] },
+        "4": { "name": "punctuation.definition.tag.end.hubullu-text" }
+      }
+    },
+    "close-tag": {
+      "match": "(</)([a-zA-Z][a-zA-Z0-9-]*)(>)",
+      "captures": {
+        "1": { "name": "punctuation.definition.tag.begin.hubullu-text" },
+        "2": { "name": "entity.name.tag.hubullu-text" },
+        "3": { "name": "punctuation.definition.tag.end.hubullu-text" }
+      }
+    },
+    "tag-attribute": {
+      "match": "([a-zA-Z][a-zA-Z0-9-]*)(=)(\"[^\"]*\"|'[^']*')",
+      "captures": {
+        "1": { "name": "entity.other.attribute-name.hubullu-text" },
+        "2": { "name": "punctuation.separator.key-value.hubullu-text" },
+        "3": { "name": "string.quoted.double.hubullu-text" }
+      }
     },
     "entry-ref-with-tags": {
       "match": "([\\w\\p{L}](?:[\\w\\p{L}]|\\.)*)(#([\\w\\p{L}]+))?\\s*(\\[)",
@@ -67,6 +106,15 @@
         "3": { "name": "constant.other.tag-value.hubullu-text" }
       }
     },
+    "stem-ref": {
+      "match": "([\\w\\p{L}](?:[\\w\\p{L}]|\\.)*)\\[(\\$)(=)([\\w\\p{L}]+)\\]",
+      "captures": {
+        "1": { "name": "entity.name.type.entry.hubullu-text" },
+        "2": { "name": "keyword.operator.dollar.hubullu-text" },
+        "3": { "name": "keyword.operator.assignment.hubullu-text" },
+        "4": { "name": "variable.other.stem.hubullu-text" }
+      }
+    },
     "bare-entry-ref": {
       "match": "(?<![\"\\w\\p{L}])([\\w\\p{L}](?:[\\w\\p{L}]|\\.)*)(#([\\w\\p{L}]+))?",
       "captures": {
@@ -76,7 +124,7 @@
       }
     },
     "operator": {
-      "match": "~",
+      "match": "//|~",
       "name": "keyword.operator.hubullu-text"
     }
   }

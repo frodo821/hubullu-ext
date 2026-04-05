@@ -50,7 +50,7 @@
       ]
     },
     "operator": {
-      "match": "->|[=+*/!|~^$]",
+      "match": "->|//|[=+*/!|~^$<>-]",
       "name": "keyword.operator.hubullu"
     }
   }
